@@ -8,12 +8,20 @@ use App\Acomodacao;
 class AcomodacaoController extends Controller
 {
     public function acomodacaoEmJson(Acomodacao $acomodacao) {
+        return response()->json($this->incluiLinksDasImagens($acomodacao));
+    }
+
+    public function acomodacaoEmHtml(Acomodacao $acomodacao) {
+        return view('app', ["acomodacao" => $this->incluiLinksDasImagens($acomodacao)]);
+    }
+
+    private function incluiLinksDasImagens(Acomodacao $acomodacao) {
         $retorno = $acomodacao->toArray();
 
         for ($i = 1; $i <= 4; $i++) { 
-            $retorno["imagem$i"] = asset("imagens/$acomodacao->id/Image_$i.jpg");
+            $retorno["image_$i"] = asset("images/$acomodacao->id/Image_$i.jpg");
         }
-            
-        return response()->json($retorno);
+
+        return $retorno;
     }
 }
