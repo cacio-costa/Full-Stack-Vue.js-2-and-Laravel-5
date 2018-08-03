@@ -19,6 +19,10 @@ let estilos = [
     'resources/assets/css/style.css'
 ];
 
+mix.options({
+    extractVueStyles: 'public/css/vue-style.css'
+});
+
 mix.js('resources/assets/js/app.js', 'public/js')
     .styles(estilos, 'public/css/style.css')
     .copy('node_modules/open-sans-all/fonts', 'public/fonts')

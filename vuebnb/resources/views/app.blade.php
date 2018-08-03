@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Vuebnb</title>
     <link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/vue-style.css')}}" type="text/css">
     <script>
         window.acomodacao_server = JSON.parse("{!! addslashes(json_encode($acomodacao)) !!}");
     </script>
@@ -66,12 +67,9 @@
             </div>
         </div>
 
-        <div id="modal" :class="{ show : modalOpen }">
-            <button @click="modalOpen = false" class="modal-close">&times;</button>
-            <div class="modal-content">
-                <img :src="images[0]" />
-            </div>
-        </div>
+        <modal-window>
+            <image-carousel :images="images"></image-carousel>
+        </modal-window>
 
     </div>
 
