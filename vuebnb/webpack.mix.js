@@ -23,12 +23,21 @@ mix.options({
     extractVueStyles: 'public/css/vue-style.css'
 });
 
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.runtime.esm.js'
+        }
+    }
+});
+
 mix.js('resources/assets/js/app.js', 'public/js')
     .styles(estilos, 'public/css/style.css')
     .copy('node_modules/open-sans-all/fonts', 'public/fonts')
     .copy('node_modules/font-awesome/fonts', 'public/fonts')
     .copy('resources/assets/images', 'public/images')
     .browserSync({
-        proxy: 'http://localhost:9000',
+        proxy: 'http://localhost',
         open: false
-    });
+    })
+    .disableSuccessNotifications();

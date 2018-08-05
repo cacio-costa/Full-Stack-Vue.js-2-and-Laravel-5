@@ -17,8 +17,8 @@ export default {
 
     methods: {
         escapeKeyListener(evt) {
-            if (evt.keyCode === 27 && app.modalOpen) {
-                app.modalOpen = false;
+            if (evt.keyCode === 27 && this.modalOpen) {
+                this.modalOpen = false;
             }
         }
     },
