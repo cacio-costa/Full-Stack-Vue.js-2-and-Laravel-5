@@ -12,7 +12,17 @@ class AcomodacaoController extends Controller
     }
 
     public function acomodacaoEmHtml(Acomodacao $acomodacao) {
-        return view('app', ["acomodacao" => $this->incluiLinksDasImagens($acomodacao)]);
+        return view('app', ["dados" => $this->incluiLinksDasImagens($acomodacao)]);
+    }
+
+    public function listagemEmHtml() {
+        $dados = Acomodacao::all(['id', 'address', 'title', 'price_per_night']);
+        $dados->transform(function($acomodacao) {
+            $acomodacao->thumb = asset("images/$acomodacao->id/Image_1_thumb.jpg");
+            return $acomodacao;
+        });
+
+        return view('app', ["dados" => collect($dados->toArray())]);
     }
 
     private function incluiLinksDasImagens(Acomodacao $acomodacao) {
@@ -22,6 +32,6 @@ class AcomodacaoController extends Controller
             $retorno["image_$i"] = asset("images/$acomodacao->id/Image_$i.jpg");
         }
 
-        return $retorno;
+        return collect($retorno);
     }
 }

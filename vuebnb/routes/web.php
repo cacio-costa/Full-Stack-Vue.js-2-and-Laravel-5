@@ -13,4 +13,5 @@ use App\Acomodacao;
 |
 */
 
-Route::get('acomodacao/{acomodacao}', 'AcomodacaoController@acomodacaoEmHtml');
+Route::get('/', 'AcomodacaoController@listagemEmHtml');
+Route::get('acomodacoes/{acomodacao}', 'AcomodacaoController@acomodacaoEmHtml');

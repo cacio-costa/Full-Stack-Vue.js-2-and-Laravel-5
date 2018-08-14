@@ -1,9 +1,11 @@
 import Vue from 'vue';
-import ListagemAcomodacoes from "../components/ListagemAcomodacoes";
+import router from './router';
+import App from "../components/App";
 
 var app = new Vue({
     
     el: '#app',
-    render: h => h(ListagemAcomodacoes)
+    render: h => h(App),
+    router
 
 });
