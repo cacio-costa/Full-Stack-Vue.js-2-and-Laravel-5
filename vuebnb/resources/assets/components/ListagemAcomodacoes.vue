@@ -1,42 +1,40 @@
 <template>
     <div class="home-container">
-        <div v-for="(group, pais) in acomodacoes">
-            <h1>Lugares em {{pais}}</h1>
-            <div class="listing-summaries">
-                <listing-summary v-for="listing in group" :key="listing.id" :listing="listing"
-                    class="listing-summary-group">
-                </listing-summary>
-            </div>
-        </div>
+        <listing-summary-group
+            v-for="(group, country) in acomodacoes" 
+            :key="country" 
+            :acomodacoes="group" 
+            :pais="country"
+            class="listing-summary-group">
+        </listing-summary-group>
     </div>
 </template>
 
 <script>
 import { groupByCountry } from '../js/helpers';
-import axios from 'axios';
-import ListingSummary from "./ListingSummary";
+
+import RouteMixin from './mixins/route-mixin';
+import ListingSummaryGroup from "./ListingSummaryGroup.vue";
 
 export default {
+    mixins: [RouteMixin],
+
     components: {
-        ListingSummary
+        ListingSummaryGroup
     },
+
     data() {
-        return { acomodacoes: [] };
+        return {
+            acomodacoes: []
+        };
     },
-    beforeRouteEnter(to, from, next) {
-        if (to.path === window.dados_servidor.path) {
-            let acomodacoes = groupByCountry(window.dados_servidor.acomodacoes);
-            next(pagina => pagina.acomodacoes = acomodacoes);
-        } else {
-            axios.get('/api')
-                .then(resposta => {
-                    let acomodacoes = groupByCountry(resposta.data);
-                    next(pagina => pagina.acomodacoes = acomodacoes);
-                });
+
+    methods: {
+        setDados(dados) {
+            this.acomodacoes = groupByCountry(dados.acomodacoes);
         }
-
-
     }
+
 }
 </script>
 

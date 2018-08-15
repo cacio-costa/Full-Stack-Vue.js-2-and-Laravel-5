@@ -19,7 +19,7 @@ class AcomodacaoController extends Controller
     }
 
     public function listagemEmJson() {
-        return response()->json(collect($this->listaAcomodacoes()));
+        return response()->json(['acomodacoes' => collect($this->listaAcomodacoes())]);
     }
 
     public function listagemEmHtml(Request $request)

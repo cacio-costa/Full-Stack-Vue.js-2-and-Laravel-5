@@ -1,5 +1,5 @@
 <template>
-    <i :class="classes" @click="clicou"></i>
+    <i :class="classes" @click="clicou($event)"></i>
 </template>
 
 <script>
@@ -12,9 +12,9 @@ export default {
     },
 
     methods: {
-        clicou() {
+        clicou(event) {
             let deslocamento = this.dir === "left" ? -1 : 1;
-            this.$emit("muda", deslocamento);
+            this.$emit("muda", deslocamento, event);
         }
     }
 };

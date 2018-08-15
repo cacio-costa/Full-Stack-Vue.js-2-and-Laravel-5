@@ -1,14 +1,26 @@
 <template>
     <div>
         <div id="toolbar">
-            <router-link :to="{name: 'listagem'}">
+            <router-link :to="{name: 'home'}">
               <img class="icon" src="/images/logo.png">
               <h1>vuebnb</h1>
             </router-link>
         </div>
         <router-view></router-view>
+        <custom-footer></custom-footer>
     </div>
 </template>
+
+<script>
+import CustomFooter from './CustomFooter.vue';
+
+export default {
+    components: {
+        CustomFooter
+    }    
+}
+</script>
+
 
 <style>
 #toolbar {
