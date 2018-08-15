@@ -7,31 +7,54 @@ use App\Acomodacao;
 
 class AcomodacaoController extends Controller
 {
-    public function acomodacaoEmJson(Acomodacao $acomodacao) {
+    public function acomodacaoEmJson(Acomodacao $acomodacao)
+    {
         return response()->json($this->incluiLinksDasImagens($acomodacao));
     }
 
-    public function acomodacaoEmHtml(Acomodacao $acomodacao) {
-        return view('app', ["dados" => $this->incluiLinksDasImagens($acomodacao)]);
+    public function acomodacaoEmHtml(Acomodacao $acomodacao, Request $request)
+    {
+        $dados = $this->incluiLinksDasImagens($acomodacao);
+        return view('app', ["dados" => $this->adicionaMetadados($dados, $request)]);
     }
 
-    public function listagemEmHtml() {
+    public function listagemEmJson() {
+        return response()->json(collect($this->listaAcomodacoes()));
+    }
+
+    public function listagemEmHtml(Request $request)
+    {
+        $dados = collect(['acomodacoes' => $this->listaAcomodacoes()]);
+        $dados = $this->adicionaMetadados($dados, $request);
+
+        return view('app', ["dados" => $dados]);
+    }
+
+    private function listaAcomodacoes() {
         $dados = Acomodacao::all(['id', 'address', 'title', 'price_per_night']);
-        $dados->transform(function($acomodacao) {
+        $dados->transform(function ($acomodacao) {
             $acomodacao->thumb = asset("images/$acomodacao->id/Image_1_thumb.jpg");
             return $acomodacao;
         });
 
-        return view('app', ["dados" => collect($dados->toArray())]);
+        return $dados->toArray();
     }
 
-    private function incluiLinksDasImagens(Acomodacao $acomodacao) {
+    private function incluiLinksDasImagens(Acomodacao $acomodacao)
+    {
         $retorno = $acomodacao->toArray();
 
-        for ($i = 1; $i <= 4; $i++) { 
+        for ($i = 1; $i <= 4; $i++) {
             $retorno["image_$i"] = asset("images/$acomodacao->id/Image_$i.jpg");
         }
 
-        return collect($retorno);
+        return collect(['acomodacao' => $retorno]);
+    }
+
+    private function adicionaMetadados($collection, $request)
+    {
+        return $collection->merge([
+            'path' => $request->getPathInfo()
+        ]);
     }
 }

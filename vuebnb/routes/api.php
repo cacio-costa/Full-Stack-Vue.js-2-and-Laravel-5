@@ -17,4 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get("/", "AcomodacaoController@listagemEmJson");
 Route::get("acomodacoes/{acomodacao}", "AcomodacaoController@acomodacaoEmJson");

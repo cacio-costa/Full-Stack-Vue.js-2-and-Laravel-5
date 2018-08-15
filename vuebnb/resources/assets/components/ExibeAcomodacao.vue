@@ -46,7 +46,7 @@ import HeaderImage from "./HeaderImage";
 import FeatureList from "./FeatureList";
 import ExpandableText from './ExpandableText';
 
-let acomodacao = populateAmenitiesAndPrices(window.dados_servidor);
+let acomodacao = populateAmenitiesAndPrices(window.dados_servidor.acomodacao);
 
 export default {
     components: {
