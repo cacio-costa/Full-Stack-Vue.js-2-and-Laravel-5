@@ -12,26 +12,16 @@
 
 <script>
 import { groupByCountry } from '../js/helpers';
-
-import RouteMixin from './mixins/route-mixin';
 import ListingSummaryGroup from "./ListingSummaryGroup.vue";
 
 export default {
-    mixins: [RouteMixin],
-
     components: {
         ListingSummaryGroup
     },
 
-    data() {
-        return {
-            acomodacoes: []
-        };
-    },
-
-    methods: {
-        setDados(dados) {
-            this.acomodacoes = groupByCountry(dados.acomodacoes);
+    computed: {
+        acomodacoes() {
+            return groupByCountry(this.$store.state.resumoAcomodacoes);
         }
     }
 

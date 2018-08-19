@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Acomodacao;
+use Illuminate\Support\Facades\Auth;
 
 class AcomodacaoController extends Controller
 {
@@ -53,8 +54,13 @@ class AcomodacaoController extends Controller
 
     private function adicionaMetadados($collection, $request)
     {
+        $isUsuarioLogado = Auth::check();
+        $saved = $isUsuarioLogado ? Auth::user()->saved : [];
+
         return $collection->merge([
-            'path' => $request->getPathInfo()
+            'path' => $request->getPathInfo(),
+            'auth' => $isUsuarioLogado,
+            'saved' => $saved
         ]);
     }
 }

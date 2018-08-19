@@ -1,14 +1,20 @@
 <template>
     <div class="header">
         <div class="header-img" :style="headerImageStyle" @click="$emit('header-clicked')">
+            <salva-acomodacao :id="id" :button="true"></salva-acomodacao>
             <button class="view-photos">Ver fotos</button>
         </div>
     </div>
 </template>
 
 <script>
+import SalvaAcomodacao from './SalvaAcomodacao';
+
 export default {
-    props: ['imageUrl'],
+    props: ['imageUrl', 'id'],
+    components: {
+        SalvaAcomodacao
+    },
     computed: {
         headerImageStyle() {
             return {'background-image': `url(${this.imageUrl})`};

@@ -10,25 +10,32 @@
                 <div class="info address">{{listing.address}}</div>
             </div>
         </router-link>
+        <salva-acomodacao :id="listing.id" :button="false"></salva-acomodacao>
     </div>
 </template>
 
 <script>
+import SalvaAcomodacao from "./SalvaAcomodacao";
+
 export default {
-    props: ['listing'],
+    props: ["listing"],
+    components: {
+        SalvaAcomodacao
+    },
     computed: {
         backgroundImageStyle() {
             return {
-                'background-image': `url("${this.listing.thumb}")`
+                "background-image": `url("${this.listing.thumb}")`
             };
         }
     }
-}
+};
 </script>
 
 <style>
 .listing-summary {
     flex: 0 0 auto;
+    position: relative;
 }
 
 .listing-summary a {
@@ -61,5 +68,12 @@ export default {
 .listing-summary .info.address {
     font-size: 14px;
     line-height: 18px;
+}
+
+@media (max-width: 400px) {
+    .listing-summary .listing-save {
+        left: 15px;
+        right: auto;
+    }
 }
 </style>

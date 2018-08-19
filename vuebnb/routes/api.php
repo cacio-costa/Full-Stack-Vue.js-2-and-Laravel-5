@@ -18,4 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get("/", "AcomodacaoController@listagemEmJson");
+Route::get("/acomodacoes-salvas", "AcomodacaoController@listagemEmJson");
 Route::get("acomodacoes/{acomodacao}", "AcomodacaoController@acomodacaoEmJson");
+
+Route::post('/user/toggle_saved', 'UsuarioController@salvaAcomodacoes')
+    ->middleware('auth:api');

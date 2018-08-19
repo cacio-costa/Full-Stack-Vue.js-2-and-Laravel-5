@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/vue-style.css')}}" type="text/css">
     <script>
         window.dados_servidor = JSON.parse("{!! addslashes(json_encode($dados)) !!}");
+        window.csrf_token = "{{ csrf_token() }}";
     </script>
 </head>
 

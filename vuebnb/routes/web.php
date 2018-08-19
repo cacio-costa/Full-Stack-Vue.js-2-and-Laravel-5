@@ -1,6 +1,7 @@
 <?php
 
 use App\Acomodacao;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +15,7 @@ use App\Acomodacao;
 */
 
 Route::get('/', 'AcomodacaoController@listagemEmHtml');
+Route::get('/acomodacoes-salvas', 'AcomodacaoController@listagemEmHtml')->middleware('auth');
 Route::get('acomodacoes/{acomodacao}', 'AcomodacaoController@acomodacaoEmHtml');
+
+Auth::routes();
